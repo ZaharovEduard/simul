@@ -28,7 +28,7 @@ class Pool:
         else:
             print('error Pool.setField: wrong mark')
 
-    def calcCollis(self):
+    def calcInteract(self):
         parts = self.getField('par')
         end = len(parts)
         for i in range(0, end):
@@ -60,7 +60,11 @@ class Pool:
 
             else:
                 pass
+    def updatePartCoord(self):
+        for bod in self.getField('par'):
+            bod.updateCoord()
 
+    
             
         
             

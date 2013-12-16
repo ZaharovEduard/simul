@@ -125,7 +125,12 @@ class Body:
         else:
             print("error setMatpointCharac mark is not string \n")
 
-        
+    def updateCoord(self):
+        dx = self.getField('vel').getCoord('x') * SIM_STEP
+        dy = self.getField('vel').getCoord('y') * SIM_STEP
+        pos = self.getField('coord')
+        self.setField('coord', Point( dx + pos.getCoord('x'), dy + pos.getCoord('y')))
+
 class Interaction:
     def __init__(self, interType='dummy'):
         self.interType = interType
@@ -161,13 +166,10 @@ class Interaction:
         r = ob1.getField('coord').dist(ob2.getField('coord'))
         REP_DIST = 10  
         DUMMY_FORCE = 10
-        print('hey')
         if self.interType == 'dummy':
             if r < REP_DIST:
-                print('hella')
                 return -DUMMY_FORCE 
             else:
-                print('ho')
                 return DUMMY_FORCE
                 
 
@@ -180,7 +182,7 @@ class Interaction:
         by = b.getCoord('y')
         f = self.force(ob1, ob2)
         direct_vec = Vector(bx - ax, by - ay).normalize()
-        a_dv = direct_vec * (SIM_STEP * f ) / ob1.getField('m')
-        b_dv = (- direct_vec ) * (SIM_STEP * f) / ob2.getField('m') 
-        ob1.setField('vel', self.getField('vel') + a_dv)
-        ob2.setField('vel', body.getField('vel') + b_dv)
+        a_dv = direct_vec * ((SIM_STEP * f ) / ob1.getField('m'))
+        b_dv = (- direct_vec ) * ((SIM_STEP * f) / ob2.getField('m'))
+        ob1.setField('vel', ob1.getField('vel') + a_dv)
+        ob2.setField('vel', ob2.getField('vel') + b_dv)
