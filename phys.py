@@ -1,7 +1,7 @@
 import operator
 import math
 
-INTERACT_DISTANCE = 100
+INTERACT_DISTANCE = 10000
 SIM_STEP = 0.01
 class Point:
     """ 2-D point. coordinates x and y. Point(3, 5.5) """
@@ -164,8 +164,8 @@ class Interaction:
 
     def force(self, ob1, ob2):
         r = ob1.getField('coord').dist(ob2.getField('coord'))
-        REP_DIST = 10  
-        DUMMY_FORCE = 10
+        REP_DIST = 100  
+        DUMMY_FORCE = 100
         if self.interType == 'dummy':
             if r < REP_DIST:
                 return -DUMMY_FORCE 
