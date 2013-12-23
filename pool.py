@@ -6,11 +6,12 @@ FPS = 30
 
 class Pool:
     '''The pool of interacting particles'''
-    def __init__(self, size=(100, 100), ref=(50,50), par=[], interact=phys.Interaction() ):
+    def __init__(self, size=(100, 100), ref=(50,50), par=[], interact=phys.Interaction(), borders=True ):
         self.size = size
         self.ref = ref
         self.par = par
         self.interact = interact
+        self.borders = borders
         self.ratio = (WINDOW_SIZE[0] / self.size[0], \
                       WINDOW_SIZE[1] / self.size[1] )
         pygame.init()        
@@ -74,9 +75,16 @@ class Pool:
         for bod in self.getField('par'):
             coord = bod.getField('coord')
             x, y = coord.getCoord('x'), coord.getCoord('y') 
-            pygame.draw.circle(self.getField('screen'), (0,0,0,0) ,\
-                ( int(self.ratio[0]*(x+self.ref[0])) , int(self.ratio[1]*(y+self.ref[1])) ), int(self.ratio[0]*bod.getField('r')) ) 
-
+            r = bod.getField('r')
+            ratx, raty = self.ratio[0], self.ratio[1]
+            refrX, refrY = self.ref[0], self.ref[1]
+          #  pygame.draw.circle(self.getField('screen'), (0,0,0,0) ,\
+           #     ( int(self.ratio[0]*(x+self.ref[0])) , int(self.ratio[1]*(y+self.ref[1])) ), int(self.ratio[0]*bod.getField('r')) ) 
+            pygame.draw.ellipse(self.getField('screen'), (0,0,0,0),\
+                            (int(ratx * ((x+refrX)-r)),\
+                            int(raty * ((y+refrY)-r)),\
+                            int(2 * ratx * r),\
+                            int(2 * raty * r)), 0) 
     def mainLoop(self):
         background = pygame.Surface(self.getField('screen').get_size())
         background = background.convert()
@@ -90,14 +98,10 @@ class Pool:
             self.getField('screen').blit(background, (0,0))
             self.drawAllPart()     
             pygame.display.flip()
-            self.calcWallBounce()
+            if self.borders:           
+                self.calcWallBounce()
             self.calcInteract()
             self.updatePartCoord()  
             pygame.time.wait(int(1000 * phys.SIM_STEP))
         pygame.quit()
-
-#            A = phys.Body(phys.Point(100,0), phys.Vector(-24,10), 5, 10)
-#    B = phys.Body(phys.Point(0,0), phys.Vector(2,-1), 5, 10)
-
-#pool = pool.Pool((400,300),(200,150),[A,B])
 

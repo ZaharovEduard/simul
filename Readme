@@ -1,0 +1,8 @@
+A demonstraion of N-pool simulation (with absolutely dumb collisions), with or without borders. 
+Support gravitation-like and 'dummy'(molecular-like) interactions.
+
+
+Start demonstration:
+
+python3 examplesim.py
+

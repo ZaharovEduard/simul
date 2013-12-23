@@ -1,7 +1,7 @@
 import operator
 import math
 
-INTERACT_DISTANCE = 10000
+INTERACT_DISTANCE = 1000000
 SIM_STEP = 0.01
 class Point:
     """ 2-D point. coordinates x and y. Point(3, 5.5) """
@@ -94,18 +94,17 @@ class Vector:
         return Vector(a / abs(self) , b / abs(self) )
     
 class Body:
-    def __init__(self, coord=Point(), vel=Vector(), r=1, m=1, \
-                 inter='molec' ):
+    def __init__(self, coord=Point(), vel=Vector(), r=1, m=1):
         self.coord = coord # coord is Point
         self.vel = vel # vel is Vector
         self.r = r
         self.m = m
         self.mom = vel * m
         self.ener = vel * vel * m / 2
-        self.inter = inter
+
     def getField(self, mark):
         options = {'coord': self.coord, 'vel': self.vel, 'r': self.r, 'm': self.m,\
-                    'mom': self.mom, 'ener': self.ener, 'inter': self.inter}
+                    'mom': self.mom, 'ener': self.ener}
         return options[mark]
 
     def setField(self, mark, value):
@@ -118,14 +117,13 @@ class Body:
                 self.r = value
             elif mark == 'm':
                 self.m = value
-            elif mark == 'inter':
-                self.force = value
             else:
                 print("error setMatpointCharac is not valid string \n")
         else:
             print("error setMatpointCharac mark is not string \n")
 
     def updateCoord(self):
+        '''Updating coordinates of moving body in time step'''
         dx = self.getField('vel').getCoord('x') * SIM_STEP
         dy = self.getField('vel').getCoord('y') * SIM_STEP
         pos = self.getField('coord')
@@ -133,6 +131,7 @@ class Body:
 
 class Interaction:
     def __init__(self, interType='dummy'):
+        '''Types of supperted interactions are 'grav' and 'dummy' '''
         self.interType = interType
 
     def interact(self, ob1, ob2):
@@ -144,6 +143,7 @@ class Interaction:
             pass
     
     def isIntersec(self, ob1, ob2):
+        '''Check, whether two bodies are intersecting'''
         if ob1.getField('coord').dist(ob2.getField('coord')) < \
            ob1.getField('r') + ob2.getField('r'):
             return True
@@ -151,7 +151,8 @@ class Interaction:
             return False
             
     def collide(self, ob1, ob2):
-        '''dummy realisation'''    
+        '''Calculating velocities of two bodies after collision. Currently, dumb as hell'''
+        #dummy realisation of colliding bodies    
         ob1.setField('vel', -ob1.getField('vel'))
         ob2.setField('vel', -ob2.getField('vel')) 
         
@@ -163,17 +164,24 @@ class Interaction:
             return False
 
     def force(self, ob1, ob2):
+        '''Calculating absolute value of interaction force'''
         r = ob1.getField('coord').dist(ob2.getField('coord'))
         REP_DIST = 100  
         DUMMY_FORCE = 100
+        m1 = ob1.getField('m')
+        m2 = ob2.getField('m')
         if self.interType == 'dummy':
             if r < REP_DIST:
-                return -DUMMY_FORCE 
+                return -(DUMMY_FORCE * m1 * m2)  
             else:
-                return DUMMY_FORCE
+                return DUMMY_FORCE * m1 * m2
+        elif self.interType == 'grav':
+            GRAV_CONS = 1000            
+            return GRAV_CONS * m1 * m2 / r**2
                 
 
     def influence(self, ob1, ob2):                    
+        '''Calculatin the impact of 2 bodies on each other.'''
         a = ob1.getField('coord')
         b = ob2.getField('coord')
         ax = a.getCoord('x')
