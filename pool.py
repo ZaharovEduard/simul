@@ -78,8 +78,6 @@ class Pool:
             r = bod.getField('r')
             ratx, raty = self.ratio[0], self.ratio[1]
             refrX, refrY = self.ref[0], self.ref[1]
-          #  pygame.draw.circle(self.getField('screen'), (0,0,0,0) ,\
-           #     ( int(self.ratio[0]*(x+self.ref[0])) , int(self.ratio[1]*(y+self.ref[1])) ), int(self.ratio[0]*bod.getField('r')) ) 
             pygame.draw.ellipse(self.getField('screen'), (0,0,0,0),\
                             (int(ratx * ((x+refrX)-r)),\
                             int(raty * ((y+refrY)-r)),\

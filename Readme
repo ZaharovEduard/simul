@@ -1,4 +1,4 @@
-A demonstraion of N-pool simulation (with absolutely dumb collisions), with or without borders. 
+A demonstraion of N-pool simulation (with billiard-like collisions), with or without borders. 
 Support gravitation-like and 'dummy'(molecular-like) interactions.
 
 

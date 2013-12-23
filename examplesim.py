@@ -19,5 +19,15 @@ def gravtest():
     pool = apool((1000,750), (200, 150), [A,B,C,D], False)
     pool.mainLoop()
 
+def collistest():
+    A = body((0,0), (-125, -100), 20,100)
+    #A = body((0,80), (25, -10), 20,100)
+    B = body((-140,-140), (25, 25), 20,100)
+    #B = body((0,0), (25, 10), 20,100)
+    D = body((100,0),(30,-40), 8, 40)
+    C = body((-130,180),(70,40), 10, 50)
+    P = apool((800,600), (400,400), [A,B,C,D], True)
+    P.mainLoop()
+
 if __name__ == "__main__":
     gravtest() 
