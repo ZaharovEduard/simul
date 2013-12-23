@@ -2,7 +2,6 @@ import phys
 import pygame
 
 WINDOW_SIZE=(800, 600)
-FPS = 30
 
 class Pool:
     '''The pool of interacting particles'''
