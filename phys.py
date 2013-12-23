@@ -1,8 +1,7 @@
 import operator
 import math
 
-INTERACT_DISTANCE = 1000000
-MIN_DIST = 0.1
+INTERACT_DISTANCE = 100000
 SIM_STEP = 0.01
 class Point:
     """ 2-D point. coordinates x and y. Point(3, 5.5) """
@@ -151,7 +150,7 @@ class Interaction:
             return False
             
     def collide(self, ob1, ob2):
-        '''Calculating velocities of two bodies after collision. Currently, dumb as hell'''
+        '''Calculating velocities of two bodies after collision. Currently, billiard-like'''
         #dummy realisation of colliding bodies    
         #ob1.setField('vel', -ob1.getField('vel'))
         #ob2.setField('vel', -ob2.getField('vel')) 
@@ -181,8 +180,7 @@ class Interaction:
 
         ob1.setField('vel', Vector(v1x_fin, v1y_fin))
         ob2.setField('vel', Vector(v2x_fin, v2y_fin))
-    
-        print('bam')    
+  
         n = Vector(x2 - x1, y2 - y1)        
         rat =  (r1 + r2) / abs(n)  
         rvec = n * rat
