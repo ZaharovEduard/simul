@@ -30,7 +30,7 @@ class Pool:
         elif mark =='par':
             self.par = value
         else:
-            print('error Pool.setField: wrong mark')
+            print('error Pool.setField: wrong mark \n----------------\n Proceeding execution.\n----------------\n')
 
     def calcInteract(self):
         parts = self.getField('par')
