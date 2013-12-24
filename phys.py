@@ -19,7 +19,7 @@ class Point:
         elif mark == 'y':
             return self.y
         else: 
-            print("error. getCoord:  wrong mark \n")
+            print("error. getCoord:  wrong mark.\n----------------\n Proceeding execution.\n----------------\n")
     
     def setCoord(self, mark, value):
         '''Set coordinate 'x' or 'y' by the 'value': setCoord('x', 3) '''
@@ -28,7 +28,7 @@ class Point:
         elif mark == 'y':
             self.y = value
         else: 
-            print("error. Point.setCoord: wrong mark \n")
+            print("error. Point.setCoord: wrong mark \n----------------\n Proceeding execution.\n----------------\n")
 
     def dist(self, point):
         return math.sqrt( (self.getCoord('x') - point.getCoord('x'))**2 + \
@@ -47,7 +47,7 @@ class Vector:
         elif mark == 'y':
             return self.y
         else: 
-            print("error. Vector.getCoord:  wrong mark \n")
+            print("error. Vector.getCoord:  wrong mark \n----------------\n Proceeding execution.\n----------------\n")
     
     def setCoord(self, mark, value):
         '''Set coordinate 'x' or 'y' by the 'value': setCoord('x', 3) '''
@@ -56,7 +56,7 @@ class Vector:
         elif mark == 'y':
             self.y = value
         else: 
-            print("error. Vector.setCoord: wrong mark \n")
+            print("error. Vector.setCoord: wrong mark \n----------------\n Proceeding execution.\n----------------\n")
 
     def __add__(self, vec):
         '''operator +'''
@@ -64,7 +64,7 @@ class Vector:
             return Vector(self.getCoord('x') + vec.getCoord('x'), \
                           self.getCoord('y') + vec.getCoord('y'))
         else:  
-            print('error. Operator "+". operand is not vector \n')
+            print('error. Operator "+". operand is not vector \n----------------\n Proceeding execution.\n----------------\n')
 
     def __abs__(self):
         '''operator || (abs)'''
@@ -79,7 +79,7 @@ class Vector:
             return Vector(oper * self.getCoord('x'), \
                           oper * self.getCoord('y'))        
         else:    
-            print("error. operand of multiplication is not vector or real number\n")
+            print("error. operand of multiplication is not vector or real number \n----------------\n Proceeding execution.\n----------------\n")
     
     def __neg__(self):
        '''operator -. -vec'''
@@ -118,9 +118,9 @@ class Body:
             elif mark == 'm':
                 self.m = value
             else:
-                print("error setMatpointCharac is not valid string \n")
+                print("error setMatpointCharac is not valid string \n----------------\n Proceeding execution.\n----------------\n")
         else:
-            print("error setMatpointCharac mark is not string \n")
+            print("error setMatpointCharac mark is not string \n----------------\n Proceeding execution.\n----------------\n")
 
     def updateCoord(self):
         '''Updating coordinates of moving body in time step'''
